@@ -1,0 +1,73 @@
+﻿@model Autos_ABC.Models.SolicitudModel
+
+@{
+	ViewBag.Title = "AgregarSolicitud";
+}
+
+<h2>Agregar Solicitud</h2>
+
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.TextBoxFor(model => model.Fecha, "", new { @class = "form-control", @id = "Fecha" })
+				@Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.Label("Número de lote", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.NumeroLote, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.NumeroLote, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.Label("Automovil", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.Auto, new SelectList(ViewBag.Auto, "Auto", "FolioAuto"), new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.Auto, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Agregar" class="btn btn-success" />
+			</div>
+		</div>
+	</div>
+}
+
+<script type="text/javascript">
+
+
+	$(document).ready(function () {
+		//Asignar el calendario a salida y estimada
+		$.datetimepicker.setLocale('es');
+		$("#Fecha").datetimepicker({
+			format: 'd/m/Y',
+			minDate: new Date()
+		});
+	});
+      	
+
+</script>
+
+<div>
+	@Html.ActionLink("Regresar", "ObtenerSolicitud", null, new { @class = "btn btn-warning btn-xs", @role = "button" })
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Autos_ABC.Models.SolicitudModel>
+
+@{
+	ViewBag.Title = "ObtenerSolicitud";
+}
+
+<h2>Lista de Solicitud</h2>
+
+<p>
+	@Html.ActionLink("Agregar Solicitud", "AgregarSolicitud", null, new { @class = "btn btn-success btn-sm", @role = "button" })
+</p>
+
+@using (Html.BeginForm())
+{
+	<div class="container">
+		<center>
+			<p>
+				<b>Buscar por Número de Lote:</b> @Html.TextBox("SearchString")
+				<input class="btn btn-primary" type="submit" value="Buscar" />
+			</p>
+		</center>
+	</div>
+}
+
+
+<table class="table">
+	<tr>
+		<th>
+			Fecha
+		</th>
+		<th>
+			Número de lote
+		</th>
+		<th>
+			Marca
+		</th>
+		<th>
+			Modelo
+		</th>
+		<th>
+			Folio
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.Fecha)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.NumeroLote)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.MarcaAuto)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ModeloAuto)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.FolioAuto)
+			</td>
+			<td>
+				@Html.ActionLink("Actualizar", "ActualizarSolicitud", new { id = item.IdSolicitud }, new { @class = "btn btn-primary btn-xs", @role = "button" }) |
+				@Html.ActionLink("Borrar", "BorrarSolicitud", new { id = item.IdSolicitud }, new { @class = "btn btn-warning btn-xs", @role = "button" })
+			</td>
+		</tr>
+	}
+
+</table>

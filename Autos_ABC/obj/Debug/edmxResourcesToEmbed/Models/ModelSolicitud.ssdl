@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AutosABCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AUTOS">
+    <Key>
+      <PropertyRef Name="IdAuto" />
+    </Key>
+    <Property Name="IdAuto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdSolicitud" Type="int" Nullable="false" />
+    <Property Name="Marca" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Color" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Modelo" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Folio" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Transmision" Type="bit" Nullable="false" />
+    <Property Name="Descripcion" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SOLICITUD">
+    <Key>
+      <PropertyRef Name="IdSolicitud" />
+    </Key>
+    <Property Name="IdSolicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="NumeroLote" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_Solicitud">
+    <End Role="SOLICITUD" Type="Self.SOLICITUD" Multiplicity="1" />
+    <End Role="AUTOS" Type="Self.AUTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SOLICITUD">
+        <PropertyRef Name="IdSolicitud" />
+      </Principal>
+      <Dependent Role="AUTOS">
+        <PropertyRef Name="IdSolicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AutosABCModelStoreContainer">
+    <EntitySet Name="AUTOS" EntityType="Self.AUTOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SOLICITUD" EntityType="Self.SOLICITUD" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_Solicitud" Association="Self.fk_Solicitud">
+      <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+      <End Role="AUTOS" EntitySet="AUTOS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

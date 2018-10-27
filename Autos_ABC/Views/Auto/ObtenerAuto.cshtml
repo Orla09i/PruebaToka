@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Autos_ABC.Models.AutoModel>
+
+@{
+    ViewBag.Title = "ObtenerAuto";
+}
+
+<h2>Lista de Autos</h2>
+
+<p>
+    @Html.ActionLink("Agregar Auto", "AgregarAuto", null, new { @class = "btn btn-success btn-sm", @role = "button" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Folio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transmision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Folio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+		<td>
+			@if (item.Transmision == true)
+			{
+				@Html.Label("Automático")
+			}
+			@if (item.Transmision == false)
+			{
+				@Html.Label("Standar")
+			}
+		</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+		<td>
+			@Html.ActionLink("Editar", "ActualizarAuto", new { id = item.IdAuto }, new { @class = "btn btn-primary btn-xs", @role = "button" })
+			@*@Html.ActionLink("Borrar", "BorrarAuto", new { id = item.IdAuto }, new { @class = "btn btn-warning btn-xs", @role = "button" })*@
+		</td>
+    </tr>
+}
+
+</table>
